@@ -3,6 +3,7 @@ import csv from 'csv-parser'
 import db from './database.js'
 
 const CSV_FILE = 'historical_prices.csv';
+const formatDate = (dateStr) => new Date(dateStr).toISOString().slice(0, 19).replace('T', ' ');
 
 async function importCSV() {
     try {
@@ -11,12 +12,12 @@ async function importCSV() {
         fs.createReadStream(CSV_FILE)
             .pipe(csv())
             .on('data', (row) => {
-                const { date, price, instrument_name } = row;
+                const { date, price, symbol } = row;
 
                 records.push({
-                    date,
+                    date: formatDate(date),
                     price: parseFloat(price),
-                    instrument_name
+                    symbol
                 });
             })
             .on('end', async () => {
@@ -25,7 +26,7 @@ async function importCSV() {
                 db.serialize(() => {
                     const stmt = db.prepare(
                         `INSERT OR IGNORE INTO historical_prices 
-                         (date, price, instrument_name) 
+                         (date, price, symbol) 
                          VALUES (?, ?, ?)`
                     );
 
@@ -33,7 +34,7 @@ async function importCSV() {
                         stmt.run(
                             record.date,
                             record.price,
-                            record.instrument_name
+                            record.symbol
                         );
                     });
 

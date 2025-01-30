@@ -16,7 +16,7 @@ db.serialize(() => {
         `CREATE TABLE IF NOT EXISTS historical_prices (
             date TEXT NOT NULL,
             price REAL,
-            instrument_name TEXT
+            symbol TEXT
         )`,
         (err) => {
             if (err) console.error('Error creating table', err.message);
