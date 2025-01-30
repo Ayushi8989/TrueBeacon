@@ -1,5 +1,6 @@
 import sqlite3 from 'sqlite3';
 
+const filepath = 'historical_prices.sqlite'
 // Connecting to database
 const db = new sqlite3.Database(filepath, (err) => {
     if (err) {
@@ -15,7 +16,7 @@ db.serialize(() => {
         `CREATE TABLE IF NOT EXISTS historical_prices (
             date TEXT NOT NULL,
             price REAL,
-            instrument_name REAL
+            instrument_name TEXT
         )`,
         (err) => {
             if (err) console.error('Error creating table', err.message);
@@ -23,4 +24,4 @@ db.serialize(() => {
     );
 });
 
-module.exports = db;
+export default db;
