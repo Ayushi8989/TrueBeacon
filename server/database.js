@@ -1,27 +1,20 @@
 import sqlite3 from 'sqlite3';
 
-const filepath = 'historical_prices.sqlite'
+const dbPath = '/home/ayu/Desktop/truebeacon/historical_data.db';
+
 // Connecting to database
-const db = new sqlite3.Database(filepath, (err) => {
+const db = new sqlite3.Database(dbPath, (err) => {
     if (err) {
-        console.log('Error openinig database: ', err.message);
+        console.error('Error opening database:', err.message);
     } else {
         console.log('Connected to SQLite database!');
     }
-})
-
-// Creating historical_prices table
-db.serialize(() => {
-    db.run(
-        `CREATE TABLE IF NOT EXISTS historical_prices (
-            date TEXT NOT NULL,
-            price REAL,
-            symbol TEXT
-        )`,
-        (err) => {
-            if (err) console.error('Error creating table', err.message);
+    db.all('SELECT * FROM historical_prices', [], (err, rows) => {
+        if (err) {
+            throw err;
         }
-    );
+        console.log(rows);  
+    });
 });
 
 export default db;

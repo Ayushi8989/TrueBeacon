@@ -1,4 +1,4 @@
-import db from './database.js';
+import db from '../database.js'
 
 const getHistoricalData = async (req, res) => {
     const { symbol, from_date, to_date } = req.query;
@@ -7,20 +7,25 @@ const getHistoricalData = async (req, res) => {
         return res.status(400).json({ error: 'symbol, from_date, and to_date are required' });
     }
 
+    console.log('Query Params:', { symbol, from_date, to_date });
+
     try {
         const query = `
-            SELECT date, price, instrument_name 
-            FROM historical_prices 
-            WHERE symbol = ? 
+            SELECT * FROM historical_prices
+            WHERE symbol = ?
             AND date BETWEEN ? AND ?
-            ORDER BY date ASC
         `;
 
-        const rows = await db.all(query, [symbol, from_date, to_date]);
-        res.json(rows);
+        db.all(query, [symbol, from_date, to_date], (err, rows) => {
+            if (err) {
+                console.error('Database query error:', err);
+                return res.status(500).json({ error: 'An error occurred while fetching historical data' });
+            }
+            return res.status(200).json(rows);
+        });
     } catch (error) {
-        console.error('Database error:', error);
-        res.status(500).json({ error: 'Database error' });
+        console.error('Database query error:', error);
+        return res.status(500).json({ error: 'An error occurred while fetching historical data' });
     }
 };
 

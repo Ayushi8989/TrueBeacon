@@ -1,49 +1,30 @@
-import fs from 'fs'
-import csv from 'csv-parser'
-import db from './database.js'
+import fs from 'fs';
+import csv from 'csv-parser';
+import db from './database.js';
 
 const CSV_FILE = 'historical_prices.csv';
-const formatDate = (dateStr) => new Date(dateStr).toISOString().slice(0, 19).replace('T', ' ');
+const insrow = db.prepare('INSERT INTO historical_prices(date, price, symbol) VALUES (?, ?, ?)');
 
 async function importCSV() {
     try {
-        const records = [];
+        db.serialize(() => {
+            fs.createReadStream(CSV_FILE)
+                .pipe(csv())
+                .on('data', (row) => {
+                    insrow.run(row.date.slice(0, 10), row.price, row.symbol);
+                    console.log(row);
+                })
+                .on('end', () => {
+                    insrow.finalize((err) => {
+                        if (err) console.error('Finalize Error:', err);
 
-        fs.createReadStream(CSV_FILE)
-            .pipe(csv())
-            .on('data', (row) => {
-                const { date, price, symbol } = row;
-
-                records.push({
-                    date: formatDate(date),
-                    price: parseFloat(price),
-                    symbol
-                });
-            })
-            .on('end', async () => {
-                console.log(`Processing ${records.length} records...`);
-
-                db.serialize(() => {
-                    const stmt = db.prepare(
-                        `INSERT OR IGNORE INTO historical_prices 
-                         (date, price, symbol) 
-                         VALUES (?, ?, ?)`
-                    );
-
-                    records.forEach((record) => {
-                        stmt.run(
-                            record.date,
-                            record.price,
-                            record.symbol
-                        );
-                    });
-
-                    stmt.finalize(() => {
-                        console.log('CSV data imported successfully.');
-                        db.close();
+                        db.close((err) => {
+                            if (err) console.error('Close Error:', err);
+                            else console.log('Database connection closed.');
+                        });
                     });
                 });
-            });
+        });
     } catch (error) {
         console.error('Error importing CSV:', error);
     }

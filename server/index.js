@@ -9,15 +9,20 @@ const app = express()
 
 const port = process.env.PORT;
 
-app.get('/', (req, res)=>{
+app.use(cors({
+    origin: '*',
+    credentials: true
+}));
+
+
+app.use(express.json());
+
+app.get('/', (req, res) => {
     res.send("Welcome!");
 })
 
-app.use(cors());
-app.use(express.json()); 
-
 app.use('/api', historicalRoute)
 
-app.listen(port, ()=>{
+app.listen(port, () => {
     console.log(`Server is running on http://localhost/${port}`);
 })
