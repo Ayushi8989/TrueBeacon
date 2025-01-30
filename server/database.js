@@ -1,0 +1,26 @@
+import sqlite3 from 'sqlite3';
+
+// Connecting to database
+const db = new sqlite3.Database(filepath, (err) => {
+    if (err) {
+        console.log('Error openinig database: ', err.message);
+    } else {
+        console.log('Connected to SQLite database!');
+    }
+})
+
+// Creating historical_prices table
+db.serialize(() => {
+    db.run(
+        `CREATE TABLE IF NOT EXISTS historical_prices (
+            date TEXT NOT NULL,
+            price REAL,
+            instrument_name REAL
+        )`,
+        (err) => {
+            if (err) console.error('Error creating table', err.message);
+        }
+    );
+});
+
+module.exports = db;
