@@ -9,12 +9,12 @@ const db = new sqlite3.Database(dbPath, (err) => {
     } else {
         console.log('Connected to SQLite database!');
     }
-    db.all('SELECT * FROM historical_prices', [], (err, rows) => {
-        if (err) {
-            throw err;
-        }
-        console.log(rows);  
-    });
+    // db.all('SELECT * FROM historical_prices', [], (err, rows) => {
+    //     if (err) {
+    //         throw err;
+    //     }
+    //     console.log(rows);  
+    // });
 });
 
 export default db;
