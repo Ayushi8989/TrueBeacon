@@ -1,5 +1,5 @@
 import express from 'express'
-import { getHistoricalData } from '../controllers/historicaldata.controller.js'
+import { getHistoricalData } from '../controllers/historicalData.controller.js'
 
 const router = express.Router()
 

@@ -1,9 +1,10 @@
 import dotenv from 'dotenv';
 import express from 'express';
 import cors from 'cors';
-import historicalRoutes from './routes/historicaldata.routes.js';
+import historicalRoutes from './routes/historicalData.routes.js';
 import userRoutes from './routes/user.routes.js';
 import portfolioRoutes from './routes/portfolio.routes.js';
+import placeOrderRoutes from './routes/placeOrder.routes.js';
 
 dotenv.config()
 
@@ -28,6 +29,7 @@ app.get('/', (req, res) => {
 app.use('/api', historicalRoutes);
 app.use('/user', userRoutes);
 app.use('/portfolio', portfolioRoutes);
+app.use('/order', placeOrderRoutes);
 
 app.listen(port, () => {
     console.log(`Server is running on http://localhost/${port}`);
