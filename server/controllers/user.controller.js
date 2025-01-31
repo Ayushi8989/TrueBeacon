@@ -1,6 +1,7 @@
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import db from '../database.js';
+import { readJSON } from '../util/readJson.js';
 
 const userLogin = async (req, res) => {
     const { username, password } = req.body;
@@ -31,7 +32,7 @@ const userLogin = async (req, res) => {
     });
 };
 
-const userRegister = async (req, res) =>{
+const userRegister = async (req, res) => {
     const { username, email, password } = req.body;
 
     if (!username || !email || !password) {
@@ -52,4 +53,9 @@ const userRegister = async (req, res) =>{
     });
 };
 
-export {userLogin, userRegister};
+const userProfile = async (req, res) => {
+    const profile = readJSON("profile.json");
+    res.json(profile);
+}
+
+export { userLogin, userRegister, userProfile };
