@@ -3,7 +3,8 @@
 import { useState } from "react";
 import InputField from "@/components/InputField";
 import Button from "@/components/Button";
-import "@/styles/form.css"; 
+import "@/styles/form.css";
+import { loginHandler } from "@/lib/api";
 
 export default function LoginPage() {
     const [username, setUsername] = useState("");
@@ -11,13 +12,12 @@ export default function LoginPage() {
 
     const handleLogin = async () => {
         try {
-            const response = await fetch("/api/login", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ username, password }),
-            });
+            const response = await loginHandler(username, password);
 
-            if (!response.ok) throw new Error("Login failed");
+            console.log(23, response)
+            if (response.success == false) {
+                throw new Error(response.message || "Login failed");
+            }
 
             alert("Login successful");
         } catch (error) {
@@ -28,7 +28,7 @@ export default function LoginPage() {
     return (
         <div className="login-container">
             <div className="login-form">
-            <h1 className="login-title">Login</h1>
+                <h1 className="login-title">Login</h1>
                 <InputField
                     type="text"
                     placeholder="Username"

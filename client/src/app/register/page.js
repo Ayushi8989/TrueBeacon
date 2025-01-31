@@ -4,6 +4,7 @@ import { useState } from "react";
 import InputField from "@/components/InputField";
 import Button from "@/components/Button";
 import "@/styles/form.css";
+import { registerNewUser } from "@/lib/api";
 
 export default function RegisterPage() {
     const [username, setUsername] = useState("");
@@ -12,14 +13,10 @@ export default function RegisterPage() {
 
     const handleRegister = async () => {
         try {
-            const response = await fetch("/api/register", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ username, email, password }),
-            });
-
-            if (!response.ok) throw new Error("Registration failed");
-
+            const response = await registerNewUser(username, email, password);
+            if (response.message !== 'User registered successfully') {
+                throw new Error(response.message || "Registration failed");
+            }
             alert("Registration successful");
         } catch (error) {
             alert(error.message);
@@ -39,7 +36,7 @@ export default function RegisterPage() {
                 <InputField
                     type="text"
                     placeholder="Email"
-                    value={username}
+                    value={email}
                     onChange={(e) => setEmail(e.target.value)}
                 />
                 <InputField
