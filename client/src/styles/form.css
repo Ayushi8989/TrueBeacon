@@ -1,5 +1,5 @@
 /* Centering the form */
-.login-container {
+.login-container, .register-container {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -9,7 +9,7 @@
 }
 
 /* Login Title */
-.login-title {
+.login-title, .register-title {
     font-size: 24px;
     font-weight: bold;
     margin-bottom: 16px;
@@ -17,7 +17,7 @@
 }
 
 /* Form Wrapper */
-.login-form {
+.login-form, .register-form {
     width: 300px;
     padding: 60px;
     background: white;
