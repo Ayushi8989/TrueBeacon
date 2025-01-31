@@ -18,20 +18,6 @@ export const loginHandler = async (username, password) => {
     }
 }
 
-// get historical data
-export const fetchHistoricalData = async (symbol, fromDate, toDate) => {
-    try {
-        const response = await axios.get(`${API_BASE_URL}/api/historical-data`, {
-            params: { symbol, from_date: fromDate, to_date: toDate },
-        });
-        console.log(response.data)
-        return response.data;
-    } catch (error) {
-        console.error("Error in fetching historical-data: ", error.response?.data || error.message);
-        return { success: false, message: error.response?.data };
-    }
-};
-
 // Registration handler
 export const registerNewUser = async (username, email, password) => {
     try {
@@ -46,3 +32,42 @@ export const registerNewUser = async (username, email, password) => {
         return { success: false, message: error.response?.data };
     }
 };
+
+// get historical data
+export const fetchHistoricalData = async (symbol, fromDate, toDate) => {
+    try {
+        const response = await axios.get(`${API_BASE_URL}/api/historical-data`, {
+            params: { symbol, from_date: fromDate, to_date: toDate },
+        });
+        console.log(response.data)
+        return response.data;
+    } catch (error) {
+        console.error("Error in fetching historical-data: ", error.response?.data || error.message);
+        return { success: false, message: error.response?.data };
+    }
+};
+
+// get profile data
+export const fetchProfileData = async () => {
+    try {
+        const response = await axios.get(`${API_BASE_URL}/user/profile`);
+        return response.data;
+    } catch (error) {
+        console.error("Error in fetching profile-data: ", error.response?.data || error.message);
+        return { success: false, message: error.response?.data };
+    }
+};
+
+// get holding_response data
+export const fetchHoldingsData = async () => {
+    try {
+        const response = await axios.get(`${API_BASE_URL}/portfolio/holdings`);
+        console.log(30, response.data.data)
+        return response.data;
+    } catch (error) {
+        console.error("Error in fetching holdings-data: ", error.response?.data || error.message);
+        return { success: false, message: error.response?.data };
+    }
+};
+
+
