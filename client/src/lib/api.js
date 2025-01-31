@@ -70,4 +70,14 @@ export const fetchHoldingsData = async () => {
     }
 };
 
+export const placeOrder = async () => {
+    try {
+        const response = await axios.post(`${API_BASE_URL}/order/place-order`);
+        console.log(30, response.data)
+        return response.data;
+    } catch (error) {
+        console.error("Error in placing order: ", error.response?.data || error.message);
+        return { success: false, message: error.response?.data };
+    }
+};
 

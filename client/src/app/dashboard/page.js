@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { fetchProfileData, fetchHoldingsData } from "@/lib/api";
+import OrderForm from "@/components/OrderForm";
 import "@/styles/card.css";
 
 export default function DashboardPage() {
@@ -101,6 +102,7 @@ export default function DashboardPage() {
                         ))}
                 </tbody>
             </table>
+            <OrderForm />
         </div>
     );
 }
