@@ -2,7 +2,7 @@ import axios from "axios";
 import { NextResponse } from "next/server";
 import { use } from "react";
 
-const API_BASE_URL = "https://my-server.vercel.app";
+const API_BASE_URL = "https://true-beacon-jkzr.vercel.app";
 
 // login handler
 export const loginHandler = async (username, password) => {
