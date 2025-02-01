@@ -31,6 +31,10 @@ app.use('/user', userRoutes);
 app.use('/portfolio', portfolioRoutes);
 app.use('/order', placeOrderRoutes);
 
-app.listen(port, () => {
-    console.log(`Server is running on http://localhost/${port}`);
-})
+// app.listen(port, () => {
+//     console.log(`Server is running on http://localhost/${port}`);
+// })
+
+app.listen(3001, () => console.log("Server running on port 3001"));
+
+module.exports = app;

@@ -1,4 +1,9 @@
 /** @type {import('next').NextConfig} */
-const nextConfig = {};
-
-export default nextConfig;
+const nextConfig = {
+    env: {
+      BACKEND_URL: process.env.BACKEND_URL || "https://my-server.vercel.app"
+    }
+  };
+  
+  module.exports = nextConfig;
+  

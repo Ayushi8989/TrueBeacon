@@ -1,0 +1,19 @@
+{
+    "projects": [
+      {
+        "name": "my-client",
+        "rootDirectory": "client",
+        "buildCommand": "npm install && npm run build",
+        "outputDirectory": "client/.next",
+        "framework": "nextjs"
+      },
+      {
+        "name": "my-server",
+        "rootDirectory": "server",
+        "buildCommand": "npm install",
+        "outputDirectory": "server",
+        "framework": "nodejs"
+      }
+    ]
+  }
+  
