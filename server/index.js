@@ -35,6 +35,6 @@ app.use('/order', placeOrderRoutes);
 //     console.log(`Server is running on http://localhost/${port}`);
 // })
 
-app.listen(3001, () => console.log("Server running on port 3001"));
+// app.listen(3001, () => console.log("Server running on port 3001"));
 
-module.exports = app;
+export default app;
