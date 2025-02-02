@@ -5,6 +5,7 @@ import historicalRoutes from './routes/historicalData.routes.js';
 import userRoutes from './routes/user.routes.js';
 import portfolioRoutes from './routes/portfolio.routes.js';
 import placeOrderRoutes from './routes/placeOrder.routes.js';
+import { startWebSocketServer } from './util/webSocket.js';
 
 dotenv.config()
 
@@ -31,9 +32,12 @@ app.use('/user', userRoutes);
 app.use('/portfolio', portfolioRoutes);
 app.use('/order', placeOrderRoutes);
 
-app.listen(port, () => {
+const server = app.listen(port, () => {
     console.log(`Server is running on http://localhost/${port}`);
 })
+
+// Initialize WebSocket server
+startWebSocketServer(server);
 
 // app.listen(3001, () => console.log("Server running on port 3001"));
 

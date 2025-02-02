@@ -5,7 +5,6 @@ import { fetchProfileData } from "@/lib/api";
 import OrderForm from "@/components/OrderForm";
 import TimeSeriesData from "@/components/TimeSeriesData";
 import HoldingsData from "@/components/HoldingsData";
-// import "./page.css";
 import '@/styles/globals.css'; 
 
 

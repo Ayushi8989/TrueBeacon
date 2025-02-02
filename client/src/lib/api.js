@@ -2,11 +2,14 @@ import axios from "axios";
 import { NextResponse } from "next/server";
 import { use } from "react";
 
-const API_BASE_URL = "http://127.0.0.1:5000";
+const API_BASE_URL = process.env.API_BASE_URL;
+console.log(12345, API_BASE_URL)
 
 // login handler
 export const loginHandler = async (username, password) => {
     try {
+        console.log(567890)
+        console.log(2345, API_BASE_URL)
         const response = await axios.post(`${API_BASE_URL}/user/login`, {
             username,
             password
@@ -50,6 +53,7 @@ export const fetchHistoricalData = async (symbol, fromDate, toDate) => {
 // get profile data
 export const fetchProfileData = async () => {
     try {
+        console.log(2345, API_BASE_URL)
         const response = await axios.get(`${API_BASE_URL}/user/profile`);
         return response.data;
     } catch (error) {
