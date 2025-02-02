@@ -2,7 +2,7 @@ import axios from "axios";
 import { NextResponse } from "next/server";
 import { use } from "react";
 
-const API_BASE_URL = "https://true-beacon-jkzr.vercel.app";
+const API_BASE_URL = "https://aux.server.lera.cloud";
 
 // login handler
 export const loginHandler = async (username, password) => {

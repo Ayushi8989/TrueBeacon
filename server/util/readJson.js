@@ -1,9 +1,15 @@
 import fs from 'fs';
 import path from 'path';
+import { fileURLToPath } from 'url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 export const readJSON = (file) => {
     try {
-        const filePath = path.join(__dirname, '..', 'mockData', file);
+        console.log(22)
+        const filePath = path.join(__dirname, `../mock_data/${file}`);
+        console.log(23, filePath)
         const data = fs.readFileSync(filePath, 'utf8');
         return JSON.parse(data);
     } catch (error) {
