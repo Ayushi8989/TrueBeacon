@@ -1,7 +1,7 @@
 import sqlite3 from 'sqlite3';
 import path from 'path';
 
-const dbPath = path.join('/tmp', 'historical_data.db'); 
+const dbPath = './historical_data.db'; 
 
 // Connecting to database
 const db = new sqlite3.Database(dbPath, (err) => {
