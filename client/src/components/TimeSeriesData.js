@@ -18,7 +18,6 @@ export default function TimeSeriesData() {
 
     const fetchData = async () => {
         const result = await fetchHistoricalData(symbol, fromDate, toDate);
-        console.log(20, result);
         setData(result);
     };
 

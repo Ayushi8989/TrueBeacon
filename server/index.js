@@ -6,10 +6,12 @@ import userRoutes from './routes/user.routes.js';
 import portfolioRoutes from './routes/portfolio.routes.js';
 import placeOrderRoutes from './routes/placeOrder.routes.js';
 import { startWebSocketServer } from './util/webSocket.js';
+import {createServer} from 'http';
 
 dotenv.config()
 
 const app = express();
+const server = createServer(app);
 
 const port = process.env.PORT;
 // const jwt_secret = process.env.JWT_SECRET;
@@ -32,7 +34,7 @@ app.use('/user', userRoutes);
 app.use('/portfolio', portfolioRoutes);
 app.use('/order', placeOrderRoutes);
 
-const server = app.listen(port, () => {
+app.listen(port, () => {
     console.log(`Server is running on http://localhost/${port}`);
 })
 

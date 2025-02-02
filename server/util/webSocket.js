@@ -3,7 +3,9 @@ import { WebSocketServer } from 'ws';
 let wss;
 
 export const startWebSocketServer = (server) => {
-    wss = new WebSocketServer({ server });
+    const wss = new WebSocketServer({ server, path: "/ws" });
+
+    console.log("WebSocket Server initialized");
 
     const prices = [
         { symbol: "GOLDBEES", price: 40.67 },
