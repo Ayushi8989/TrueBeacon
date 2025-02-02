@@ -3,8 +3,8 @@
 import { useState } from "react";
 import InputField from "@/components/InputField";
 import Button from "@/components/Button";
-import "@/styles/form.css";
 import { loginHandler } from "@/lib/api";
+import './page.css';
 
 export default function LoginPage() {
     const [username, setUsername] = useState("");

@@ -2,7 +2,7 @@ import axios from "axios";
 import { NextResponse } from "next/server";
 import { use } from "react";
 
-const API_BASE_URL = "https://aux.server.lera.cloud";
+const API_BASE_URL = "http://127.0.0.1:5000";
 
 // login handler
 export const loginHandler = async (username, password) => {

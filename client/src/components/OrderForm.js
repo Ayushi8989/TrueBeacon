@@ -4,7 +4,6 @@ import { useState } from "react";
 import { placeOrder } from "@/lib/api";
 import InputField from "./InputField";
 import Button from "./Button";
-import "@/styles/form.css";
 
 export default function OrderForm() {
     const [orderSymbol, setOrderSymbol] = useState("");
@@ -27,8 +26,8 @@ export default function OrderForm() {
                 quantity: Number(orderQuantity),
                 price: Number(orderPrice),
             });
-
-            setOrderMessage(response.message || "Order placed successfully!");
+            const orderid = response.data.order_id
+            setOrderMessage(`${response.data.message}, your order ID: ${orderid}`);
 
             // Reset form fields
             setOrderSymbol("");
@@ -40,7 +39,7 @@ export default function OrderForm() {
     };
 
     return (
-        <div>
+        <div className="order-container">
             <h2>Place an Order</h2>
             <form onSubmit={handleOrderSubmit} className="order-form">
                 <label>
@@ -76,7 +75,7 @@ export default function OrderForm() {
                     />
                 </label>
 
-                <Button type="submit">Submit</Button>
+                <Button label="Submit" onClick={handleOrderSubmit} />
             </form>
 
             {orderMessage && <p className="order-message">{orderMessage}</p>}
