@@ -26,9 +26,6 @@
     gap: 10px;
 }
 
-.login-container button {
-    width: 290px;
-}
 
 label {
     font-weight: bold;
@@ -37,11 +34,11 @@ input, select {
     padding: 8px;
     border: 1px solid #ccc;
     border-radius: 4px;
-    margin-right: 10px;
-    margin-left: 5px;
+    /* margin-right: 10px; */
+    /* margin-left: 5px; */
 }
 button {
-    width: 200px;
+    width: 100%;
     padding: 10px;
     background: #1b3f66;
     color: white;
@@ -51,4 +48,12 @@ button {
 }
 button:hover {
     background: #0056b3;
+}
+
+.go-to-login{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content:space-between;
+    font-size: 1em;
 }

@@ -1,25 +1,32 @@
 "use client";
 
 import { useState } from "react";
+import { useRouter } from "next/navigation";
+import { registerNewUser } from "@/lib/api";
+
 import InputField from "@/components/InputField";
 import Button from "@/components/Button";
-import { registerNewUser } from "@/lib/api";
+import Link from "next/link";
+
 import './page.css';
 
 export default function RegisterPage() {
     const [username, setUsername] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const router = useRouter();
 
     const handleRegister = async () => {
         try {
             const response = await registerNewUser(username, email, password);
-            if (response.message !== 'User registered successfully') {
-                throw new Error(response.message || "Registration failed");
+            console.log(response.success)
+            if ( response.success === false) {
+                alert(response.message.message);
+            } else {
+                router.push("/login");
             }
-            alert("Registration successful");
         } catch (error) {
-            alert(error.message);
+            console.log("Error: ", error)
         }
     };
 
@@ -46,6 +53,10 @@ export default function RegisterPage() {
                     onChange={(e) => setPassword(e.target.value)}
                 />
                 <Button label="Register" onClick={handleRegister} />
+                <div className="go-to-login">
+                    <h5>Already a user? </h5>
+                    <Link href="/login">Login</Link>
+                </div>
             </div>
         </div>
     );
