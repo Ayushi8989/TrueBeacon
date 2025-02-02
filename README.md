@@ -43,6 +43,7 @@ JWT_SECRET=your-jwt-secret
 #### 3.2 Add a env file to your client directory
 ```bash
 API_BASE_URL=http://127.0.0.1:5000
+WEB_SOCKET_URL=ws://localhost:5000/ws
 ```
 ### 4. Running the project
 
